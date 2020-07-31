@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if request.user.is_staff %}
+<div class="card-body pl-0 pb-0">
+    <a class="btn btn-sm btn-danger" href="{% url 'create_section' %}">Create Section</a>
+</div>
+{% endif %}
+
+{% for section in sections_list %}
+<div class="card my-3">
+    <div class="card-header">
+        <h5><a href="{{ section.get_absolute_url }}"><strong>{{ section.section_name }}</strong></a></h5>
+        <p class="mb-0">{{ section.description }}</p>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-3">
+                <img src="{{ section.logo_section.url }}" style="max-width:100%">
+                <p>Total Topics: {{ section.topic_set.count }}
+                    <br>Total Messages: {{ section.get_number_of_posts_in_section }}</p>
+            </div>
+            <div class="col-lg-9">
+                <p>Last Topics</p>
+                <table class="table table-hover">
+                    <tbody>
+                        {% for topic in section.get_last_discussions.all %}
+                        <tr class="row">
+                            <td class="col-lg-7 col-6">
+                                <a href="{% url 'view_topic' pk=topic.pk %}">{{ topic.title }}</a>
+                            </td>
+                            <td class="col-lg-3 col-3">
+                                <a
+                                    href="{% url 'user_profile' username=topic.topic_author.username %}">{{ topic.topic_author }}</a>
+                            </td>
+                            <td class="col-lg-2 col-3">
+                                posts: {{ topic.post_set.count }}</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock content %}

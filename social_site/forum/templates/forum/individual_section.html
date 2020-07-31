@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block head_title %}{{ block.super }} - {{ section.section_name }}{% endblock head_title %}
+
+{% block content %}
+
+<div class="card my-3">
+    <div class="card-header">
+        <h3>{{ section.section_name }}</h3>
+        <h6 class="card-text">{{ section.description }}</h6>
+    </div>
+
+    <div class="card-body">
+        <a class="btn btn-sm btn-info" href="{% url 'create_topic' pk=section.pk %}">Create Topic</a>
+        <table class="table mt-3">
+            <thead>
+                <tr class="row">
+                    <th class="col-lg-6 col-4">Title</th>
+                    <th class="col-lg-2 col-3">Author</th>
+                    <th class="col-lg-2 col-2">Post</th>
+                    <th class="col-lg-2 col-3">Last Post</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row">
+                    {% for topic in topics %}
+                    <td class="col-lg-6 col-4">
+                        <a href="{{ topic.get_absolute_url }}">{{ topic.title }}</a>
+                    </td>
+                    <td class="col-lg-2 col-3">
+                        <a
+                            href="{% url 'user_profile' username=topic.topic_author.username %}">{{ topic.topic_author }}</a>
+                    </td>
+                    <td class="col-lg-2 col-2">{{ topic.post_set.count }}</td>
+                    <td class="col-lg-2 col-3">{{ topic.post_set.last.creation_date|timesince }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+
+        </table>
+
+
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - {{ topic.title }}{% endblock head_title %}
+
+{% block content %}
+
+{% for post in posts_topic %}
+<div class="card my-3">
+    {% if forloop.first and not "page" in request.get_full_path %}
+    <div class="card-header pb-0">
+        <h3>{{ topic.title }}</h3>
+        <!-- date: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#date -->
+        <p class="text-muted">{{ topic.creation_date|date:"D d M Y" }}
+            <br>in: {{ topic.topic_section }}</p>
+    </div>
+    {% else %}
+    <div class="card-header py-0">
+        <p class="text-muted mb-0">
+            {{ post.creation_date|date:"d M Y" }}
+            {% if request.user == post.post_author %}
+            <a href="{% url 'delete_post' id=topic.pk pk=post.pk %}"> | <i class="fas fa-minus-circle"></i></a>
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-xl-2 col-4">
+                <p class="mb-0"><a
+                        href="{% url 'user_profile' username=post.post_author.username %}"><strong>{{ post.post_author }}</strong></a>
+                </p>
+                <p class="text-muted mb-0">User since: {{ post.post_author.date_joined|date:"M Y" }}</p>
+                <p class="text-muted">Posts: {{ post.post_author.posts.count }}</p>
+            </div>
+            <div class="col-xl-10 col-8">
+                <p class="my-0">{{ post.content|linebreaks }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+
+<div class="text-right">
+    <span class="step-links">
+        {% if posts_topic.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ posts_topic.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts_topic.number }} di {{ posts_topic.paginator.num_pages }}.
+        </span>
+
+        {% if posts_topic.has_next %}
+        <a href="?page={{ posts_topic.next_page_number }}">next</a>
+        <a href="?page={{ posts_topic.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+{% if request.user.is_authenticated %}
+{ % include 'forum/answer_form.html' %}
+{% else %}
+<div class="alert alert-info" role="alert">
+    To participate in the discussion, you must <a href="{% url 'login' %}?next={{ request.get_full_path }}">log in</a>
+</div>
+{% endif %}
+
+{% endblock content %}
