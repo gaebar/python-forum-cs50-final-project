@@ -1,16 +1,15 @@
 from django.contrib.auth.decorators import login_required
-
-# from django.core.paginator import Paginator  # , EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator  # , EmptyPage, PageNotAnInteger
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from .forms import TopicModelForm, PostModelForm
 from .mixins import StaffMixing
 from .models import Topic, Post, Section
 
 
-class CreateSection(CreateView):
+class CreateSection(StaffMixing, CreateView):
     model = Section
     fields = "__all__"
     template_name = "forum/create_section.html"
@@ -55,12 +54,16 @@ def viewTopic(request, pk):
     topic = get_object_or_404(Topic, pk=pk)
     posts_topic = Post.objects.filter(topic=topic)
 
-    # paginator = Paginator(posts_topic, 5)
-    # page = request.GET.get("page")
-    # posts = paginator.get_page(page)
+    paginator = Paginator(posts_topic, 5)
+    page = request.GET.get("page")
+    posts = paginator.get_page(page)
 
     answer_form = PostModelForm()
-    context = {"topic": topic, "posts_topic": posts_topic, "answer_form": answer_form}
+    context = {
+        "topic": topic,
+        "posts_topic": posts_topic,
+        "answer_form": answer_form,
+    }
     return render(request, "forum/individual_section.html", context)
 
 
@@ -75,8 +78,6 @@ def addAnswer(request, pk):
             form.instance.post_author = request.user
             form.save()
 
-            # possibile errore qui:
-
             url_topic = reverse("view_topic", kwargs={"pk": pk})
             page_in_topic = topic.get_n_pages()
             if page_in_topic > 1:
@@ -88,10 +89,10 @@ def addAnswer(request, pk):
         return HttpResponseBadRequest()
 
 
-# class DeletePost(DeleteView):
-#     model = Post
-#     success_url = "/"
+class DeletePost(DeleteView):
+    model = Post
+    success_url = "/"
 
-#     def get_queryset(self):
-#         queryset = super().get_queryset()
-#         return queryset.filter(post_author_id=self.request.user.id)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(post_author_id=self.request.user.id)

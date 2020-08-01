@@ -20,12 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "!1^r@9=_86j9cfk=02vqfxv#jeb)$1vlf5=m(4dmiq1xh7c5gp"
+SECRET_KEY = "TODO CHANGE TO ENVIRONMENT VARIABLE"
 
+# SECURITY WARNING: don't run with debug turned on in production!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,13 +38,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
+    "crispy_forms",  # pip install django_crispy_forms
     "accounts",
     "core",
     "forum",
 ]
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"  # template pack to use with django_crispy_forms
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -82,7 +83,7 @@ WSGI_APPLICATION = "social_site.wsgi.application"
 
 
 # Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
     "default": {
@@ -93,7 +94,7 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -118,19 +119,27 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'YOUR ACCOUNT'
+# EMAIL_HOST_PASSWORD = 'YOUR PASSWORD'
+# DEFAULT_FROM_EMAIL = 'my gmail account'
+# DEFAULT_TO_EMAIL = 'to email'
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+# https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static-storage")]
 
 STATIC_URL = "/static/"
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media-serve")
-
-
 MEDIA_URL = "/media/"
 
+
 LOGIN_REDIRECT_URL = "/"
+

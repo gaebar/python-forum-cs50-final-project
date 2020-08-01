@@ -3,5 +3,5 @@
 <form class="mb-3" action="{% url 'answer_topic' pk=topic.pk %}" method="POST">
     {% csrf_token %}
     {{ answer_form|crispy }}
-    <input type="submit" class="btn btn-info" value="answer">
+    <input type="submit" class="btn btn-info" value="Answer">
 </form>

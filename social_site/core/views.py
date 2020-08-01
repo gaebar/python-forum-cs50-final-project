@@ -23,3 +23,19 @@ def userProfileView(request, username):
     user_topics = Topic.objects.filter(topic_author=user).order_by("-pk")
     context = {"user": user, "user_topics": user_topics}
     return render(request, "core/user_profile.html", context)
+
+
+def search(request):
+    if "q" in request.GET:
+        querystring = request.GET.get("q")
+        print(querystring)
+        if len(querystring) == 0:
+            return redirect("/search/")
+        topics = Topic.objects.filter(title__icontains=querystring)
+        posts = Post.objects.filter(content__icontains=querystring)
+        users = User.objects.filter(username__icontains=querystring)
+        context = {"topics": topics, "posts": posts, "users": users}
+        return render(request, "core/search.html", context)
+    else:
+        return render(request, "core/search.html")
+

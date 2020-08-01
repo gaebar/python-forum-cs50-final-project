@@ -7,10 +7,10 @@ urlpatterns = [
     path("section/<int:pk>/create-topic/", views.createTopic, name="create_topic"),
     path("topic/<int:pk>/", views.viewTopic, name="view_topic"),
     path("topic/<int:pk>/answer/", views.addAnswer, name="answer_topic"),
-    # path(
-    #     "topic/<int:id>/delete-post/<int:pk>/",
-    #     views.DeletePost.as_view(),
-    #     name="delete_post",
-    # ),
+    path(
+        "topic/<int:id>/delete-post/<int:pk>/",
+        views.DeletePost.as_view(),
+        name="delete_post",
+    ),
 ]
 

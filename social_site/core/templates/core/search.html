@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head_title %}{{ block.super }} - Search in the Forum{% endblock head_title %}
+
+{% block content %}
+<h1 class="mt-3">Search Results</h1>
+<hr>
+<div class="row mt-3">
+    <div class="col-4">
+        <h5><strong>Posts</strong></h5>
+        <hr>
+        {% if posts %}
+        {% for post in posts %}
+        <p>{{ post.content|truncatewords:"10" }}</p>
+        <p class="mb-0">by <a
+                href="{% url 'user_profile' username=post.post_author.username %}">@{{ post.post_author.username }}</a>
+        </p>
+        <p>in <a href="{{ post.topic.get_absolute_url }}">{{ post.topic.title }}</a></p>
+        <hr>
+        {% endfor %}
+        {% else %}
+        <p>---</p>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <h5><strong>Topics</strong></h5>
+        <hr>
+        {% if topics %}
+        {% for topic in topics %}
+        <p>- <a href="{{ topic.get_absolute_url }}">{{ topic.title }}</a></p>
+        {% endfor %}
+        {% else %}
+        <p>---</p>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <h5><strong>Users</strong></h5>
+        <hr>
+        {% if users %}
+        {% for user in users %}
+        <p><a href="{% url 'user_profile' username=user.username %}">@{{ user }}</a></p>
+        {% endfor %}
+        {% else %}
+        <p>---</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
