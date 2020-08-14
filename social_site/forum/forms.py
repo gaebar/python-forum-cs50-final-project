@@ -4,7 +4,6 @@ from .models import Topic, Post
 
 
 class TopicModelForm(forms.ModelForm):
-
     content = forms.CharField(
         widget=forms.Textarea(attrs={"placeholder": "What do you want to talk about?"}),
         max_length=4000,
@@ -23,4 +22,3 @@ class PostModelForm(forms.ModelForm):
         fields = ["content"]
         widgets = {"content": forms.Textarea(attrs={"rows": "5"})}
         labels = {"content": "Text"}
-

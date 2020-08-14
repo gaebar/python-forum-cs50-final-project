@@ -51,7 +51,7 @@
         {% endif %}
 
         <span class="current">
-            Page {{ posts_topic.number }} of {{ posts_topic.paginator.num_pages }}.
+            Page {{ posts_topic.number }} of {{ posts_topic.paginator.num_pages }}
         </span>
 
         {% if posts_topic.has_next %}
@@ -63,10 +63,10 @@
 
 
 {% if request.user.is_authenticated %}
-{ % include 'forum/answer_form.html' %}
+{% include 'forum/answer_form.html' %}
 {% else %}
 <div class="alert alert-info" role="alert">
-    To participate in the discussion, you must <a href="{% url 'login' %}?next={{ request.get_full_path }}">log in</a>
+    To participate in the discussion, you must <a href="{% url 'login' %}?next={{ request.get_full_path }}">login</a>
 </div>
 {% endif %}
 

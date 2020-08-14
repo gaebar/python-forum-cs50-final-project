@@ -47,6 +47,26 @@ def createTopic(request, pk):
     return render(request, "forum/create_topic.html", context)
 
 
+# def viewTopic(request, pk):
+#     """
+#     link: https://docs.djangoproject.com/en/2.0/topics/pagination/
+#     """
+#     topic = get_object_or_404(Topic, pk=pk)
+#     posts_topic = Post.objects.filter(topic=topic)
+
+#     paginator = Paginator(posts_topic, 5)
+#     page = request.GET.get("page")
+#     posts = paginator.get_page(page)
+
+#     answer_form = PostModelForm()
+#     context = {
+#         "topic": topic,
+#         "posts_topic": posts,
+#         "answer_form": answer_form,
+#     }
+#     return render(request, "forum/individual_topic.html", context)
+
+
 def viewTopic(request, pk):
     """
     link: https://docs.djangoproject.com/en/2.0/topics/pagination/
@@ -59,12 +79,8 @@ def viewTopic(request, pk):
     posts = paginator.get_page(page)
 
     answer_form = PostModelForm()
-    context = {
-        "topic": topic,
-        "posts_topic": posts_topic,
-        "answer_form": answer_form,
-    }
-    return render(request, "forum/individual_section.html", context)
+    context = {"topic": topic, "posts_topic": posts, "answer_form": answer_form}
+    return render(request, "forum/individual_topic.html", context)
 
 
 @login_required
