@@ -2,9 +2,9 @@
 Forum / social website project built with Python, Django, SQLite and Bootstrap
 
 # Installation Requirements
-pip install django
-pip install pillow
-pip install django_crispy_forms
+- `pip install django`
+- `pip install pillow`
+- `pip install django_crispy_forms`
 
 # Server
 Django version 3.0.8, using settings 'social_site.settings'
