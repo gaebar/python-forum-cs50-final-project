@@ -1,5 +1,12 @@
 # python-forum-cs50-final-project
-Forum / social website project built with Python, Django, SQLite and Bootstrap
+
+This is my final project for [Harvard CS50](https://cs50.harvard.edu/x/2020/) course. It is a Forum / social website project built with Python, Django, SQLite and Bootstrap based in part on the web track's distribution code.
+
+- Subdivision of forum style content: the platform is divided into sections created by the administrators, within which users can then create new discussions relating to the section.
+- Complete registration and authentication system with password reset
+- Integrated "search site" function
+- User profile accessible by `@username`, Twitter style
+- 100% responsive site for comfortable browsing from SmartPhone
 
 ## Installation Requirements
 
@@ -24,7 +31,7 @@ Quit the server with CONTROL-C.
 ## access to the database
 To access to the database you can use the built-in [Django Admin site](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Admin_site#:~:text=To%20login%20to%20the%20site,'ve%20entered%20your%20details).
 - run `python3 manage.py runserver`
-- To login to the site, open the /admin URL (e.g. http://127.0.0.1:8000/admin)
+- To login to the site, open the '/admin' URL (e.g. http://127.0.0.1:8000/admin)
 
 
 ## Future Improvements
