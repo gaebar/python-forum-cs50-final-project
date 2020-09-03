@@ -12,11 +12,13 @@ Main features:
 ## Requirements Installation
 
 `pip install django`
+
 `pip install pillow`
+
 `pip install django_crispy_forms`
 
 ## Running the app
-1. Activate the virtual environment running `source myvirtualenv/bin/activate`
+1. Activate the virtual environment by running `source myvirtualenv/bin/activate`
 2. Go to the `social_site` folder
 3. Run `python3 manage.py runserver` and open the localhost port `http://127.0.0.1:8000/`
 
