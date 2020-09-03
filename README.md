@@ -1,3 +1,7 @@
+<img src="https://www.edx.org/sites/default/files/course/image/featured-card/cs50.jpg" width="100" alt="cs50 logo">
+
+
+
 # python-forum-cs50-final-project
 
 This is my final project for [Harvard CS50](https://cs50.harvard.edu/x/2020/) course. It is a Forum / social website project built with Python, Django, SQLite and Bootstrap.
