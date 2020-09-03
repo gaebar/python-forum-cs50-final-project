@@ -41,4 +41,7 @@ To access to the database you can use the built-in [Django Admin site](https://d
 ## Home Page
 ![Home Page](./home-page.png)
 
+## Topics Page
+![Topics Page](./topics-view.png)
+
 
