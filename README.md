@@ -37,3 +37,8 @@ To access to the database you can use the built-in [Django Admin site](https://d
  * rich text in posts
  * private messages
  * night mode
+
+## Home Page
+![Home Page](./home-page.png)
+
+
